@@ -2,16 +2,6 @@
 - hosts: all
   remote_user: ec2-user
   sudo: yes
-
-  tasks:
-  - include: java8.yml
-
-  - name: Copy and unpack Jet
-    unarchive:
-      src: "{{package_home}}/{{jet_archive}}"
-      dest: "/opt"
-
-  - name: Configure Jet
-    template: 
-      src: hazelcast.xml.j2
-      dest: "{{jet_home}}/bin/hazelcast.xml"
+  roles:
+    - common
+    - jet

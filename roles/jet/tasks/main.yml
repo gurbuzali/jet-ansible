@@ -1,0 +1,19 @@
+---
+- name: Copy and unpack Jet
+  unarchive:
+    src: "{{package_home}}/{{jet_archive}}"
+    dest: "/opt"
+- name: Ensure folder exists
+  file: path=/etc/hazelcast-jet state=directory
+- name: Configure Hazelcast
+  template:
+    src: hazelcast.xml.j2
+    dest: "/etc/hazelcast-jet/hazelcast.xml"
+- name: Copy upstart
+  copy:
+    src: hazelcast-jet.conf
+    dest: "/etc/init"
+- name: Start Hazelcast Jet
+  service:
+    name: hazelcast-jet
+    state: started
