@@ -1,0 +1,22 @@
+---
+- hosts: namenode
+  remote_user: ec2-user
+  sudo: yes
+
+  environment:
+    JAVA_HOME: /usr/java/latest
+
+  tasks:
+    - name: Start namenode
+      command: "{{hadoop_home}}/sbin/hadoop-daemon.sh --script {{hadoop_home}}/bin/hdfs start namenode"
+
+- hosts: datanode
+  remote_user: ec2-user
+  sudo: yes
+
+  environment:
+    JAVA_HOME: /usr/java/latest
+
+  tasks:   
+    - name: Start datanode 
+      command: "{{hadoop_home}}/sbin/hadoop-daemon.sh --script {{hadoop_home}}/bin/hdfs start datanode" 

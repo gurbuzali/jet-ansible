@@ -27,7 +27,7 @@
         <join>
             <multicast enabled="false" />
             <tcp-ip enabled="true">
-            	{% for host in groups['all'] %}
+            	{% for host in groups['jet'] %}
             	<member>{{ host }}</member>
             	{% endfor %}
             </tcp-ip>

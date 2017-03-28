@@ -1,0 +1,18 @@
+---
+- hosts: hadoop
+  remote_user: ec2-user
+  sudo: yes
+  roles:
+    - common
+    - hadoop
+
+- hosts: namenode
+  remote_user: ec2-user
+  sudo: yes
+
+  environment:
+    JAVA_HOME: /usr/java/latest
+
+  tasks:
+    - name: Start namenode
+      command: "{{hadoop_home}}/bin/hdfs namenode -format"
