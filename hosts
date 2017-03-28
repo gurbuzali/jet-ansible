@@ -1,10 +1,9 @@
 [namenode]
-10.0.0.41
+10.0.0.73
 
 [datanode]
-10.0.0.217
+10.0.0.114
 10.0.0.46
-10.0.0.208
 
 [hadoop:children]
 datanode

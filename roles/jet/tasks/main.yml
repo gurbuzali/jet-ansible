@@ -10,9 +10,9 @@
     src: hazelcast.xml.j2
     dest: "/etc/hazelcast-jet/hazelcast.xml"
 - name: Copy upstart
-  copy:
-    src: hazelcast-jet.conf
-    dest: "/etc/init"
+  template:
+    src: hazelcast-jet.conf.j2
+    dest: "/etc/init/hazelcast-jet.conf"
 - name: Start Hazelcast Jet
   service:
     name: hazelcast-jet

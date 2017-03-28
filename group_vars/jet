@@ -1,3 +1,4 @@
+hazelcast_version: "3.8"
 jet_version: "0.3.1"
 jet_archive: "hazelcast-jet-{{jet_version}}.tar.gz"
 jet_home: "/opt/hazelcast-jet-{{jet_version}}"
