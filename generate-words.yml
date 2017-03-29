@@ -1,0 +1,16 @@
+- name: generate-words
+  hosts: datanode
+  become: yes
+
+  environment:
+    JAVA_HOME: "{{java_home}}"
+  
+  vars:
+    source_gen: "source-generator-0.1-SNAPSHOT.jar"
+  tasks:
+    - name: Copy generator
+      copy: 
+        src: "{{package_home}}/{{source_gen}}"
+        dest: "{{download_folder}}"
+    - name: Generate
+      command: "{{hadoop_home}}/bin/hadoop jar {{download_folder}}/{{source_gen}} {{output_folder}}/{{inventory_hostname}} {{distinct_words}} {{total_words}}"

@@ -1,9 +1,9 @@
-- hosts: namenode
-  remote_user: ec2-user
-  sudo: yes
+- name: format-namenode
+  hosts: namenode
+  become: yes
 
   environment:
-    JAVA_HOME: /usr/java/latest
+    JAVA_HOME: "{{java_home}}"
 
   tasks:
     - name: Format namenode
