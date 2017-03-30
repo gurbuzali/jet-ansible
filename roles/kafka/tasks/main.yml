@@ -1,0 +1,23 @@
+---
+- name: Copy and unpack Kafka
+  unarchive:
+    src: "{{package_home}}/{{kafka_archive}}"
+    dest: "/opt"
+
+- name: Configure Kafka
+  template:
+    src: server.properties.j2
+    dest: "{{kafka_home}}/config/server.properties"
+
+- name: Configure Zookeeper
+  copy:
+    src: zookeeper.properties
+    dest: "{{kafka_home}}/config/zookeeper.properties"
+  when: inventory_hostname in groups['zookeeper']
+
+- name: Start Zookeeper
+  command: "{{kafka_home}}/bin/zookeeper-server-start.sh -daemon {{kafka_home}}/config/zookeeper.properties"
+  when: inventory_hostname in groups['zookeeper']
+
+- name: Start Kafka
+  command: "{{kafka_home}}/bin/kafka-server-start.sh -daemon {{kafka_home}}/config/server.properties"

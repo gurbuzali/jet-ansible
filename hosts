@@ -1,9 +1,19 @@
 [namenode]
-10.0.0.73
+10.0.0.217
 
 [datanode]
-10.0.0.114
-10.0.0.46
+10.0.0.57
+10.0.0.173
+10.0.0.40
+10.0.0.252
+
+[zookeeper]
+10.0.0.123
+
+[kafka]
+
+[kafka:children]
+zookeeper
 
 [hadoop:children]
 datanode
