@@ -13,6 +13,9 @@
         src: "{{package_home}}/{{source_gen}}"
         dest: "{{download_folder}}"
     - name: Word count
-      command: "java -cp {{hadoop_home}}/etc/hadoop:{{hadoop_home}}/share/hadoop/common/lib/*:{{hadoop_home}}/share/hadoop/common/*:{{hadoop_home}}/share/hadoop/hdfs:{{hadoop_home}}/share/hadoop/hdfs/lib/*:{{hadoop_home}}/share/hadoop/hdfs/*:{{hadoop_home}}/share/hadoop/yarn/lib/*:{{hadoop_home}}/share/hadoop/yarn/*:{{hadoop_home}}/share/hadoop/mapreduce/lib/*:{{hadoop_home}}/share/hadoop/mapreduce/*:/contrib/capacity-scheduler/*.jar:{{jet_home}}/lib/*:{{download_folder}}/{{source_gen}} com.hazelcast.benchmark.jet.JetWordCount {{input_path}} {{output_path}}"
-      register: jet-word-count
-    - debug: jet-word-count.stdout_lines
+      command: "nohup java -cp {{hadoop_home}}/etc/hadoop:{{hadoop_home}}/share/hadoop/common/lib/*:{{hadoop_home}}/share/hadoop/common/*:{{hadoop_home}}/share/hadoop/hdfs:{{hadoop_home}}/share/hadoop/hdfs/lib/*:{{hadoop_home}}/share/hadoop/hdfs/*:{{hadoop_home}}/share/hadoop/yarn/lib/*:{{hadoop_home}}/share/hadoop/yarn/*:{{hadoop_home}}/share/hadoop/mapreduce/lib/*:{{hadoop_home}}/share/hadoop/mapreduce/*:/contrib/capacity-scheduler/*.jar:{{jet_home}}/lib/*:{{download_folder}}/{{source_gen}} com.hazelcast.benchmark.jet.JetWordCount {{input_path}} {{output_path}} > {{package_home}}/jet-word-count.out"
+
+    - name: Fetch output
+      fetch:
+        src: "{{package_home}}/jet-word-count.out"
+        dest: "~/jet-word-count.out"
