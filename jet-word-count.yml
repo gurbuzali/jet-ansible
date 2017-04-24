@@ -1,0 +1,16 @@
+- name: jet-word-count
+  hosts: namenode
+  become: yes
+
+  environment:
+    JAVA_HOME: "{{java_home}}"
+
+  vars:
+    source_gen: "jet-word-count-0.1-SNAPSHOT.jar"
+  tasks:
+    - name: Copy jet-word-count
+      copy:
+        src: "{{package_home}}/{{source_gen}}"
+        dest: "{{download_folder}}"
+    - name: Word count
+      command: "java -cp {{hadoop_home}}/etc/hadoop:{{hadoop_home}}/share/hadoop/common/lib/*:{{hadoop_home}}/share/hadoop/common/*:{{hadoop_home}}/share/hadoop/hdfs:{{hadoop_home}}/share/hadoop/hdfs/lib/*:{{hadoop_home}}/share/hadoop/hdfs/*:{{hadoop_home}}/share/hadoop/yarn/lib/*:{{hadoop_home}}/share/hadoop/yarn/*:{{hadoop_home}}/share/hadoop/mapreduce/lib/*:{{hadoop_home}}/share/hadoop/mapreduce/*:/contrib/capacity-scheduler/*.jar:{{jet_home}}/lib/*:{{download_folder}}/{{source_gen}} com.hazelcast.benchmark.jet.JetWordCount {{input_path}} {{output_path}}"
